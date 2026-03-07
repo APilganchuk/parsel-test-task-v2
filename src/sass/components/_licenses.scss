@@ -1,0 +1,14 @@
+@use '../utils/variables' as *;
+@use '../utils/mixins' as *;
+
+.licenses {
+  height: 70px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+
+  background-color: tomato;
+
+  &__title {
+    margin: 0;
+  }
+}

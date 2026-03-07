@@ -1,0 +1,41 @@
+@use '../utils/variables' as *;
+@use '../utils/mixins' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+
+  height: 49px;
+
+  background-color: $secondary-bg-color;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  &__link {
+    position: relative;
+
+    margin-right: 21px;
+
+    font-weight: 500;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $accent-color;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -9px;
+      top: -12%;
+
+      width: 1px;
+      height: 30px;
+
+      background-color: $main-bg-color;
+    }
+  }
+}

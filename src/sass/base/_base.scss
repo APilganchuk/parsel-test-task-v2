@@ -1,0 +1,27 @@
+@use '../utils/variables' as *;
+@use '../utils/mixins' as *;
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: $font-family;
+}
+
+.main {
+  flex: 1;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 767px;
+  width: 100%;
+
+  @include tablet {
+    max-width: 1023px;
+  }
+
+  @include desktop {
+    max-width: 1140px;
+  }
+}
