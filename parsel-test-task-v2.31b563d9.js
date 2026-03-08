@@ -667,68 +667,22 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"a0t4e":[function(require,module,exports,__globalThis) {
-var _licensesJs = require("./api/licenses.js");
+var _fetchLicensesJs = require("./api/fetchLicenses.js");
 var _licenseCardJs = require("./components/licenseCard.js");
 var _handlebarsHelpersJs = require("./helpers/handlebarsHelpers.js");
 var _detectBrowserJs = require("./helpers/detectBrowser.js");
 var _downloadArrowJs = require("./components/downloadArrow.js");
 document.body.classList.add((0, _detectBrowserJs.detectBrowser)());
-(0, _handlebarsHelpersJs.registerHelpers)();
+(0, _handlebarsHelpersJs.initLicenseHelpers)();
 (0, _downloadArrowJs.initDownloadArrow)();
 async function loadAndRenderLicenses() {
     const container = document.querySelector('#licenses-container');
-    const licenses = await (0, _licensesJs.fetchLicenses)();
+    const licenses = await (0, _fetchLicensesJs.fetchLicenses)();
     (0, _licenseCardJs.renderLicenses)(licenses, container);
 }
 loadAndRenderLicenses();
 
-},{"./api/licenses.js":"aUCWO","./components/licenseCard.js":"g4Wcs","./helpers/handlebarsHelpers.js":"epp5I","./helpers/detectBrowser.js":"fOyvZ","./components/downloadArrow.js":"2sWdJ"}],"aUCWO":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "fetchLicenses", ()=>fetchLicenses);
-const API_URL = 'https://veryfast.io/t/front_test_api.php';
-async function fetchLicenses() {
-    try {
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error(res.statusText);
-        const data = await res.json();
-        return data?.result?.elements || [];
-    } catch (err) {
-        console.error('Error fetching licenses:', err);
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"g4Wcs":[function(require,module,exports,__globalThis) {
+},{"./components/licenseCard.js":"g4Wcs","./helpers/handlebarsHelpers.js":"epp5I","./helpers/detectBrowser.js":"fOyvZ","./components/downloadArrow.js":"2sWdJ","./api/fetchLicenses.js":"3xXp5"}],"g4Wcs":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderLicenses", ()=>renderLicenses);
@@ -11956,7 +11910,37 @@ var isSourceNode = "$$$isSourceNode$$$";
 };
 exports.SourceNode = SourceNode;
 
-},{"a07d2c2c4b11c39f":"fWPsq","18d5ff036a08fa06":"5Iq0C"}],"aim49":[function(require,module,exports,__globalThis) {
+},{"a07d2c2c4b11c39f":"fWPsq","18d5ff036a08fa06":"5Iq0C"}],"jnFvT":[function(require,module,exports,__globalThis) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"aim49":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "fallbackTemplate", ()=>fallbackTemplate);
@@ -11973,10 +11957,10 @@ function fallbackTemplate() {
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"epp5I":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "registerHelpers", ()=>registerHelpers);
+parcelHelpers.export(exports, "initLicenseHelpers", ()=>initLicenseHelpers);
 var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-function registerHelpers() {
+function initLicenseHelpers() {
     (0, _handlebarsDefault.default).registerHelper('isDiscount', function(price_key, options) {
         if (price_key && price_key.includes('%')) return options.fn(this);
         return options.inverse(this);
@@ -12017,6 +12001,22 @@ function initDownloadArrow() {
             arrow.classList.add('shown');
         }, 1500);
     });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3xXp5":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "fetchLicenses", ()=>fetchLicenses);
+const API_URL = 'https://veryfast.io/t/front_test_api.php';
+async function fetchLicenses() {
+    try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error(res.statusText);
+        const data = await res.json();
+        return data?.result?.elements || [];
+    } catch (err) {
+        console.error('Error fetching licenses:', err);
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire663c", {})

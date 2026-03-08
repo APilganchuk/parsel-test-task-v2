@@ -270,6 +270,7 @@ body {
 
 .licenses__placeholder-card {
   text-transform: capitalize;
+  aspect-ratio: 16 / 9;
   background-color: #e4e4e4;
   border-radius: 8px;
   justify-content: center;
