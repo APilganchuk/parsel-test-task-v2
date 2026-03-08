@@ -15,7 +15,7 @@ const templateStr = `
 
     <p class="licenses__name licenses__name--bold">{{license_name}}</p>
     
-    <a href="{{link}}" class="licenses__btn">
+    <a href="{{link}}" class="licenses__btn js-download-btn">
         DOWNLOAD
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 0C6.72517 0 0 6.71012 0 15C0 23.2899 6.71013 30 15 30C23.2899 30 30 23.2899
