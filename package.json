@@ -21,6 +21,7 @@
     "sass": "^1.89.2"
   },
   "dependencies": {
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "handlebars": "^4.7.8"
   }
 }
