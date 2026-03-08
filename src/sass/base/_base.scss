@@ -14,14 +14,22 @@ body {
 
 .container {
   margin: 0 auto;
-  max-width: 767px;
+  max-width: 1180px;
   width: 100%;
 
-  @include tablet {
+  padding: 0 20px;
+
+  @include desktop {
     max-width: 1023px;
   }
 
-  @include desktop {
-    max-width: 1140px;
+  @include tablet {
+    max-width: 767px;
+    padding: 0 15px;
+  }
+
+  @include mobile {
+    max-width: 479px;
+    padding: 0 15px;
   }
 }

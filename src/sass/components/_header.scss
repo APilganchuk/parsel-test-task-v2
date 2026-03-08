@@ -26,6 +26,10 @@
     text-decoration: none;
     color: $accent-color;
 
+    @include mobile {
+      font-size: 17px;
+    }
+
     &::after {
       content: '';
       position: absolute;

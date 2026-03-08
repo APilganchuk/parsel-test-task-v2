@@ -5,9 +5,10 @@ export function initDownloadArrow() {
   if (!container) return;
 
   container.addEventListener('click', e => {
-    const target = e.target;
+    const { target } = e;
 
-    // Клік по кнопці DOWNLOAD
+    if (window.innerWidth < 1023) return;
+
     if (target.closest('.js-download-btn')) {
       setTimeout(() => {
         arrow.classList.add('shown');

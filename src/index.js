@@ -7,6 +7,7 @@ import { initDownloadArrow } from './components/downloadArrow.js';
 document.body.classList.add(detectBrowser());
 
 registerHelpers();
+
 initDownloadArrow();
 
 async function loadAndRenderLicenses() {
