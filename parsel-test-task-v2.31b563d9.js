@@ -670,7 +670,11 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var _licensesJs = require("./api/licenses.js");
 var _licenseCardJs = require("./components/licenseCard.js");
 var _handlebarsHelpersJs = require("./helpers/handlebarsHelpers.js");
+var _detectBrowserJs = require("./helpers/detectBrowser.js");
+var _downloadArrowJs = require("./components/downloadArrow.js");
+document.body.classList.add((0, _detectBrowserJs.detectBrowser)());
 (0, _handlebarsHelpersJs.registerHelpers)();
+(0, _downloadArrowJs.initDownloadArrow)();
 async function loadAndRenderLicenses() {
     const container = document.querySelector('#licenses-container');
     const licenses = await (0, _licensesJs.fetchLicenses)();
@@ -678,7 +682,7 @@ async function loadAndRenderLicenses() {
 }
 loadAndRenderLicenses();
 
-},{"./api/licenses.js":"aUCWO","./components/licenseCard.js":"g4Wcs","./helpers/handlebarsHelpers.js":"epp5I"}],"aUCWO":[function(require,module,exports,__globalThis) {
+},{"./api/licenses.js":"aUCWO","./components/licenseCard.js":"g4Wcs","./helpers/handlebarsHelpers.js":"epp5I","./helpers/detectBrowser.js":"fOyvZ","./components/downloadArrow.js":"2sWdJ"}],"aUCWO":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "fetchLicenses", ()=>fetchLicenses);
@@ -729,16 +733,17 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderLicenses", ()=>renderLicenses);
 var _licenseCardTemplateJs = require("../templates/licenseCardTemplate.js");
+var _fallbackTemplateJs = require("../helpers/fallbackTemplate.js");
 function renderLicenses(licenses, container) {
     if (!licenses.length) {
-        container.innerHTML = '<p>No licenses found</p>';
+        container.innerHTML = (0, _fallbackTemplateJs.fallbackTemplate)();
         return;
     }
     const html = licenses.map((license)=>(0, _licenseCardTemplateJs.licenseCardTemplate)(license)).join('');
     container.innerHTML = html;
 }
 
-},{"../templates/licenseCardTemplate.js":"3JYyg","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3JYyg":[function(require,module,exports,__globalThis) {
+},{"../templates/licenseCardTemplate.js":"3JYyg","../helpers/fallbackTemplate.js":"aim49","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3JYyg":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "licenseCardTemplate", ()=>licenseCardTemplate);
@@ -759,7 +764,7 @@ const templateStr = `
 
     <p class="licenses__name licenses__name--bold">{{license_name}}</p>
     
-    <a href="{{link}}" class="licenses__btn">
+    <a href="{{link}}" class="licenses__btn js-download-btn">
         DOWNLOAD
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 0C6.72517 0 0 6.71012 0 15C0 23.2899 6.71013 30 15 30C23.2899 30 30 23.2899
@@ -11951,7 +11956,21 @@ var isSourceNode = "$$$isSourceNode$$$";
 };
 exports.SourceNode = SourceNode;
 
-},{"a07d2c2c4b11c39f":"fWPsq","18d5ff036a08fa06":"5Iq0C"}],"epp5I":[function(require,module,exports,__globalThis) {
+},{"a07d2c2c4b11c39f":"fWPsq","18d5ff036a08fa06":"5Iq0C"}],"aim49":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "fallbackTemplate", ()=>fallbackTemplate);
+function fallbackTemplate() {
+    return `
+    <div class="container not-found">
+      <div class="not-found__icon"></div>
+      <p class="not-found__title">No Licenses Found</p>
+      <p class="not-found__description">There are currently no licenses to display. Please check back later.</p>
+    </div>
+  `;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"epp5I":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "registerHelpers", ()=>registerHelpers);
@@ -11970,6 +11989,36 @@ function registerHelpers() {
     });
 }
 
-},{"handlebars":"9pFby","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire663c", {})
+},{"handlebars":"9pFby","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fOyvZ":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "detectBrowser", ()=>detectBrowser);
+function detectBrowser() {
+    const ua = navigator.userAgent;
+    if (ua.includes('Firefox')) return 'firefox';
+    if (ua.includes('Edg')) return 'edge';
+    if (ua.includes('Chrome') && !ua.includes('Edg')) return 'chrome';
+    if (ua.includes('Safari') && !ua.includes('Chrome')) return 'safari';
+    return 'other';
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2sWdJ":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initDownloadArrow", ()=>initDownloadArrow);
+function initDownloadArrow() {
+    const arrow = document.getElementById('downloadArrow');
+    const container = document.querySelector('.js-licenses-container');
+    if (!container) return;
+    container.addEventListener('click', (e)=>{
+        const { target } = e;
+        if (window.innerWidth < 1023) return;
+        if (target.closest('.js-download-btn')) setTimeout(()=>{
+            arrow.classList.add('shown');
+        }, 1500);
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire663c", {})
 
 //# sourceMappingURL=parsel-test-task-v2.31b563d9.js.map
