@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 
-export function registerHelpers() {
+export function initLicenseHelpers() {
   Handlebars.registerHelper('isDiscount', function (price_key, options) {
     if (price_key && price_key.includes('%')) {
       return options.fn(this);
