@@ -20,16 +20,14 @@ body {
   padding: 0 20px;
 
   @include desktop {
-    max-width: 1023px;
+    padding: 0 18px;
   }
 
   @include tablet {
-    max-width: 767px;
     padding: 0 15px;
   }
 
   @include mobile {
-    max-width: 479px;
-    padding: 0 15px;
+    padding: 0 10px;
   }
 }
