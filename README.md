@@ -1,4 +1,4 @@
-# Parsel Test Task v2
+# Parсel Test Task v2
 
 [![Node.js version](https://img.shields.io/badge/Node-22.12.0-green)](https://nodejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-4.5.9-blue)](https://vitejs.dev/)
