@@ -14,7 +14,7 @@
 This project is built with the following technologies:
 
 - **HTML5** – Markup structure
-- **SASS** – Styling
+- **SCSS** – Styling
 - **JavaScript (ES6+)** – Frontend logic
 - **Parcel** – Bundler for building and serving the project
 - **REST API** – Fetching data from external API
@@ -27,25 +27,25 @@ Make sure you have installed:
 - Node.js >= **v22.12.0**
 - npm
 
-Перевірте версію Node.js:
+Check Node version:
 
 ```bash
 node -v
 ```
 
-Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/APilganchuk/parsel-test-task-v2.git
 ```
 
-Go to the project folder
+Go to the project folder:
 
 ```bash
 cd parsel-test-task-v2
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
 npm install
@@ -55,4 +55,9 @@ After installing dependencies, start the development server:
 
 ```bash
 npm run dev
+```
+Deploy the production build to GitHub Pages:
+
+```bash
+npm run deploy
 ```
