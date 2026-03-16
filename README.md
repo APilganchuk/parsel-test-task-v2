@@ -9,6 +9,16 @@
 ## 🌐 Live Demo
 [https://github.com/APilganchuk/parsel-test-task-v2](https://apilganchuk.github.io/parsel-test-task-v2/)
 
+## 🛠️ Technologies
+
+This project is built with the following technologies:
+
+- **HTML5** – Markup structure
+- **SASS** – Styling
+- **JavaScript (ES6+)** – Frontend logic
+- **Parcel** – Bundler for building and serving the project
+- **REST API** – Fetching data from external API
+
 ## 🚀 Getting Started
 
 ### Prerequisites
