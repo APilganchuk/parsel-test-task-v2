@@ -668,7 +668,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"a0t4e":[function(require,module,exports,__globalThis) {
 var _fetchLicensesJs = require("./api/fetchLicenses.js");
-var _licenseCardJs = require("./components/licenseCard.js");
+var _licensesJs = require("./components/licenses.js");
 var _handlebarsHelpersJs = require("./helpers/handlebarsHelpers.js");
 var _detectBrowserJs = require("./helpers/detectBrowser.js");
 var _downloadArrowJs = require("./components/downloadArrow.js");
@@ -678,65 +678,28 @@ document.body.classList.add((0, _detectBrowserJs.detectBrowser)());
 async function loadAndRenderLicenses() {
     const container = document.querySelector('#licenses-container');
     const licenses = await (0, _fetchLicensesJs.fetchLicenses)();
-    (0, _licenseCardJs.renderLicenses)(licenses, container);
+    (0, _licensesJs.renderLicenses)(licenses, container);
 }
 loadAndRenderLicenses();
 
-},{"./components/licenseCard.js":"g4Wcs","./helpers/handlebarsHelpers.js":"epp5I","./helpers/detectBrowser.js":"fOyvZ","./components/downloadArrow.js":"2sWdJ","./api/fetchLicenses.js":"3xXp5"}],"g4Wcs":[function(require,module,exports,__globalThis) {
+},{"./helpers/handlebarsHelpers.js":"epp5I","./helpers/detectBrowser.js":"fOyvZ","./components/downloadArrow.js":"2sWdJ","./api/fetchLicenses.js":"3xXp5","./components/licenses.js":"iqcB3"}],"epp5I":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "renderLicenses", ()=>renderLicenses);
-var _licenseCardTemplateJs = require("../templates/licenseCardTemplate.js");
-var _fallbackTemplateJs = require("../helpers/fallbackTemplate.js");
-function renderLicenses(licenses, container) {
-    if (!licenses.length) {
-        container.innerHTML = (0, _fallbackTemplateJs.fallbackTemplate)();
-        return;
-    }
-    const html = licenses.map((license)=>(0, _licenseCardTemplateJs.licenseCardTemplate)(license)).join('');
-    container.innerHTML = html;
-}
-
-},{"../templates/licenseCardTemplate.js":"3JYyg","../helpers/fallbackTemplate.js":"aim49","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3JYyg":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "licenseCardTemplate", ()=>licenseCardTemplate);
+parcelHelpers.export(exports, "initLicenseHelpers", ()=>initLicenseHelpers);
 var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-const templateStr = `
-<div class="licenses__card">
-    <div class="licenses__price-container {{#if is_best}}best{{/if}}">
-        <span class="licenses__amount">&#36;{{amount}}</span>
-        <span class="licenses__period {{price_key}}">/</span>
-        {{#isDiscount price_key}}
-            <span class="licenses__discount-container"></span>
-            <span class="licenses__cross-price">$9.99</span>
-        {{/isDiscount}}
-    </div>
-
-    <p class="licenses__name">{{shortLicenseName name_display}}</p>
-
-    <p class="licenses__name licenses__name--bold">{{license_name}}</p>
-    
-    <a href="{{link}}" class="licenses__btn js-download-btn">
-        DOWNLOAD
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 0C6.72517 0 0 6.71012 0 15C0 23.2899 6.71013 30 15 30C23.2899 30 30 23.2899
-            30 15C30 6.71012 23.2748 0 15 0ZM12.2768 14.6239H13.2547C13.4654 14.6239 13.6459 14.4584
-            13.6459 14.2327V8.33501C13.6459 8.12438 13.8114 7.94382 14.0371 7.94382H15.9629C16.1735
-            7.94382 16.3541 8.10933 16.3541 8.33501V14.2327C16.3541 14.4433 16.5195 14.6239 16.7452
-            14.6239H17.7231C18.0391 14.6239 18.2196 15 18.0241 15.2558L15.3009 18.671C15.1505 18.8666
-            14.8495 18.8666 14.6991 18.671L11.991 15.2558C11.7803 15 11.9609 14.6239 12.2768 14.6239ZM23.5155
-            20.2507V21.65C23.5155 21.8606 23.3501 22.0411 23.1244 22.0411H8.39516H6.86056C6.64993 22.0411
-            6.46941 21.8756 6.46941 21.65V20.2507V16.4443C6.46941 16.2337 6.63489 16.0532 6.86056 16.0532H8.00401C8.21464
-            16.0532 8.39516 16.2186 8.39516 16.4443V19.8596C8.39516 20.0702 8.56067 20.2507 8.78635 20.2507H21.1534C21.3641
-            20.2507 21.5446 20.0853 21.5446 19.8596V16.4443C21.5446 16.2337 21.7101 16.0532 21.9358 16.0532H23.1394C23.35 16.0532 23.5306
-            16.2186 23.5306 16.4443V20.2507H23.5155Z" fill="white"/>
-        </svg>
-    </a>
-</div>
-`;
-const licenseCardTemplate = (0, _handlebarsDefault.default).compile(templateStr);
+function initLicenseHelpers() {
+    (0, _handlebarsDefault.default).registerHelper('isDiscount', function(price_key, options) {
+        if (price_key && price_key.includes('%')) return options.fn(this);
+        return options.inverse(this);
+    });
+    (0, _handlebarsDefault.default).registerHelper('shortLicenseName', function(fullName) {
+        if (!fullName) return '';
+        // Match everything up to the last space before a digit or a slash
+        const match = fullName.match(/^(.+?)\s(?=\d|\/)/);
+        return match ? match[1].trim() : fullName;
+    });
+}
 
 },{"handlebars":"9pFby","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"9pFby":[function(require,module,exports,__globalThis) {
 'use strict';
@@ -11940,40 +11903,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"aim49":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "fallbackTemplate", ()=>fallbackTemplate);
-function fallbackTemplate() {
-    return `
-    <div class="container not-found">
-      <div class="not-found__icon"></div>
-      <p class="not-found__title">No Licenses Found</p>
-      <p class="not-found__description">There are currently no licenses to display. Please check back later.</p>
-    </div>
-  `;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"epp5I":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initLicenseHelpers", ()=>initLicenseHelpers);
-var _handlebars = require("handlebars");
-var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-function initLicenseHelpers() {
-    (0, _handlebarsDefault.default).registerHelper('isDiscount', function(price_key, options) {
-        if (price_key && price_key.includes('%')) return options.fn(this);
-        return options.inverse(this);
-    });
-    (0, _handlebarsDefault.default).registerHelper('shortLicenseName', function(fullName) {
-        if (!fullName) return '';
-        // Match everything up to the last space before a digit or a slash
-        const match = fullName.match(/^(.+?)\s(?=\d|\/)/);
-        return match ? match[1].trim() : fullName;
-    });
-}
-
-},{"handlebars":"9pFby","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fOyvZ":[function(require,module,exports,__globalThis) {
+},{}],"fOyvZ":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "detectBrowser", ()=>detectBrowser);
@@ -12019,6 +11949,74 @@ async function fetchLicenses() {
         return [];
     }
 }
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"iqcB3":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "renderLicenses", ()=>renderLicenses);
+var _licenseCardTemplateJs = require("../templates/licenseCardTemplate.js");
+var _fallbackTemplateJs = require("../templates/fallbackTemplate.js");
+function renderLicenses(licenses, container) {
+    if (!licenses.length) {
+        container.innerHTML = (0, _fallbackTemplateJs.fallbackTemplate);
+        return;
+    }
+    const html = licenses.map((license)=>(0, _licenseCardTemplateJs.licenseCardTemplate)(license)).join('');
+    container.innerHTML = html;
+}
+
+},{"../templates/licenseCardTemplate.js":"3JYyg","../templates/fallbackTemplate.js":"8ahIj","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3JYyg":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "licenseCardTemplate", ()=>licenseCardTemplate);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateStr = `
+<div class="licenses__card">
+    <div class="licenses__price-container {{#if is_best}}best{{/if}}">
+        <span class="licenses__amount">&#36;{{amount}}</span>
+        <span class="licenses__period {{price_key}}">/</span>
+        {{#isDiscount price_key}}
+            <span class="licenses__discount-container"></span>
+            <span class="licenses__cross-price">$9.99</span>
+        {{/isDiscount}}
+    </div>
+
+    <p class="licenses__name">{{shortLicenseName name_display}}</p>
+
+    <p class="licenses__name licenses__name--bold">{{license_name}}</p>
+    
+    <a href="{{link}}" class="licenses__btn js-download-btn">
+        DOWNLOAD
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 0C6.72517 0 0 6.71012 0 15C0 23.2899 6.71013 30 15 30C23.2899 30 30 23.2899
+            30 15C30 6.71012 23.2748 0 15 0ZM12.2768 14.6239H13.2547C13.4654 14.6239 13.6459 14.4584
+            13.6459 14.2327V8.33501C13.6459 8.12438 13.8114 7.94382 14.0371 7.94382H15.9629C16.1735
+            7.94382 16.3541 8.10933 16.3541 8.33501V14.2327C16.3541 14.4433 16.5195 14.6239 16.7452
+            14.6239H17.7231C18.0391 14.6239 18.2196 15 18.0241 15.2558L15.3009 18.671C15.1505 18.8666
+            14.8495 18.8666 14.6991 18.671L11.991 15.2558C11.7803 15 11.9609 14.6239 12.2768 14.6239ZM23.5155
+            20.2507V21.65C23.5155 21.8606 23.3501 22.0411 23.1244 22.0411H8.39516H6.86056C6.64993 22.0411
+            6.46941 21.8756 6.46941 21.65V20.2507V16.4443C6.46941 16.2337 6.63489 16.0532 6.86056 16.0532H8.00401C8.21464
+            16.0532 8.39516 16.2186 8.39516 16.4443V19.8596C8.39516 20.0702 8.56067 20.2507 8.78635 20.2507H21.1534C21.3641
+            20.2507 21.5446 20.0853 21.5446 19.8596V16.4443C21.5446 16.2337 21.7101 16.0532 21.9358 16.0532H23.1394C23.35 16.0532 23.5306
+            16.2186 23.5306 16.4443V20.2507H23.5155Z" fill="white"/>
+        </svg>
+    </a>
+</div>
+`;
+const licenseCardTemplate = (0, _handlebarsDefault.default).compile(templateStr);
+
+},{"handlebars":"9pFby","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"8ahIj":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "fallbackTemplate", ()=>fallbackTemplate);
+const fallbackTemplate = `
+    <div class="container not-found">
+      <div class="not-found__icon"></div>
+      <p class="not-found__title">No Licenses Found</p>
+      <p class="not-found__description">There are currently no licenses to display. Please check back later.</p>
+    </div>
+  `;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire663c", {})
 
