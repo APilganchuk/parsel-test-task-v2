@@ -24,7 +24,7 @@ This project is built with the following technologies:
 ### Prerequisites
 Make sure you have installed:
 
-- Node.js >= **v22.12.0**
+- Node.js >= **18.20.8**
 - npm
 
 Check Node version:
