@@ -27,7 +27,7 @@ Make sure you have installed:
 - Node.js >= **v22.12.0**
 - npm
 
-Перевірте версію Node.js:
+Check Node version
 
 ```bash
 node -v
