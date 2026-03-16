@@ -1,7 +1,7 @@
 # Parсel Test Task v2
 
 [![Node.js version](https://img.shields.io/badge/Node-22.12.0-green)](https://nodejs.org/)
-[![Vite](https://img.shields.io/badge/Vite-4.5.9-blue)](https://vitejs.dev/)
+[![Parcel](https://img.shields.io/badge/Parcel-2.15.4-blue)](https://parceljs.org/)
 
 ## 🎨 Link to the design in Figma
 [Figma Design](https://www.figma.com/design/BeTlNMoadbfDmkbGaMfrJS/test_front-end--Copy---Copy-?node-id=2-16&t=3cgLyriPOy5msS1N-0)
