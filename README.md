@@ -14,7 +14,7 @@
 This project is built with the following technologies:
 
 - **HTML5** – Markup structure
-- **SASS** – Styling
+- **SCSS** – Styling
 - **JavaScript (ES6+)** – Frontend logic
 - **Parcel** – Bundler for building and serving the project
 - **REST API** – Fetching data from external API
