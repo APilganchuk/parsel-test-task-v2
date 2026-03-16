@@ -1,9 +1,9 @@
 import { licenseCardTemplate } from '../templates/licenseCardTemplate.js';
-import { fallbackTemplate } from '../helpers/fallbackTemplate.js';
+import { fallbackTemplate } from '../templates/fallbackTemplate.js';
 
 export function renderLicenses(licenses, container) {
   if (!licenses.length) {
-    container.innerHTML = fallbackTemplate();
+    container.innerHTML = fallbackTemplate;
     return;
   }
 

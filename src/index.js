@@ -1,5 +1,5 @@
 import { fetchLicenses } from './api/fetchLicenses.js';
-import { renderLicenses } from './components/licenseCard.js';
+import { renderLicenses } from './components/licenses.js';
 import { initLicenseHelpers } from './helpers/handlebarsHelpers.js';
 import { detectBrowser } from './helpers/detectBrowser.js';
 import { initDownloadArrow } from './components/downloadArrow.js';
